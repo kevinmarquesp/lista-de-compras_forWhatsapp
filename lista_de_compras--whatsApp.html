@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            /* <link rel="stylesheet" href="styles/global.css"> */
+            * {
+                margin: 0; padding: 0;
+                list-style: none; text-decoration: none;
+                font-family: Arial; text-align: center;
+            }
+
+            input[type=number]::-webkit-inner-spin-button,
+            input[type=number]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+            }
+            input[type="number"] {
+                -moz-appearance: textfield;
+            }
+            input { text-align: left; padding-left: 10px; background-color: transparent; border-style: none; color: #0f6e0f; }
+
+            div#lista_de_compras, div#adicionar_item, div#editar {
+                position: absolute;
+                display: flex; justify-content: center;
+                width: 100%; height: 100%;
+            }
+            div footer {
+                position: fixed;
+                width: 100%;
+                left: 0; bottom: 15px;
+            }
+
+            section {
+                max-width: 500px; width: 500px;
+                margin: 0 20px;
+            }
+
+            section nav {
+                background-color: #0f6e0f; color: white;
+                position: absolute;
+                width: 100%;
+                left: 0;
+                padding: 5px 0;
+                font-size: 13px;
+            }
+            section div.container {
+                margin-top: 50px; margin-bottom: 50px;
+            }
+            /* ------------------------------------------------ */
+
+
+
+            /* <link rel="stylesheet" href="styles/lista_de_compras.css"> */
+            ul#lista_principal li {
+                border-style: solid; border-width: 1px;
+                border-color: #0f6e0f; border-radius: 7px;
+                display: flex; padding: 10px; margin-bottom: 10px;
+            }
+
+            ul#lista_principal li.nada_adicionado { border-style: none; color: #5f5f5f; }
+            ul#lista_principal li.nada_adicionado span {
+                width: 100%;
+                font-style: italic;
+            }
+
+            ul#lista_principal li div.textos { width: 100%; text-align: left; }
+            ul#lista_principal li div.textos hr {
+                width: 50px;
+                margin: 1px 0;
+                border-style: solid;
+                color: transparent;
+                border-color: #5f5f5f77;
+                margin-left: 7px;
+            }
+            ul#lista_principal li div.textos span.texto-0 {
+                color: #5f5f5f;
+                font-size: 17px;
+                margin-right: 7px;
+            }
+            ul#lista_principal li div.textos span.texto-1 {
+                color: #5f5f5f;
+                font-size: 10px;
+                line-height: 17px;
+                position: absolute;
+            }
+            ul#lista_principal li div.textos span.texto-2 {
+                color: #0f6e0f;
+                font-weight: bold;
+                font-size: 20px;
+            }
+            ul#lista_principal li div.textos span.texto-3 {
+                color: #5f5f5f;
+                font-size: 10px;
+                font-weight: bold;
+            }
+
+            ul#lista_principal li div.botoes { max-width: 100px; }
+            ul#lista_principal li div.botoes button.editar {
+                width: 100%;
+                border-radius: 100px;
+                border-style: none;
+                background-color: #0f6e0f;
+                color: white;
+                height: 25px;
+            }
+            ul#lista_principal li div.botoes button.remover {
+                margin-top: 5px;
+                width: 100%;
+                border-style: none;
+                background-color: transparent;
+                color: #0f6e0f;
+                height: 20px;
+            }
+
+            ul#dados_finais li { color: #5f5f5f; font-size: 12px; }
+            ul#dados_finais li#total_itens { margin-bottom: 10px; }
+            ul#dados_finais li span { font-size: 15px; font-weight: bold; display: block; }
+            ul#dados_finais li span#total_compra { color: #0f6e0f; font-size: 20px; }
+
+            div#lista_de_compras footer button {
+                width: 100px;
+                border-radius: 100px;
+                border-style: none;
+                background-color: #0f6e0f;
+                color: white;
+                height: 25px;
+            }
+            /* ------------------------------------------------ */
+
+
+
+            /* <link rel="stylesheet" href="styles/adicionar_item.css"> */
+            div#adicionar_item div.container div {
+                border-width: 1px; border-color: #0f6e0f;
+                border-radius: 100px; border-style: solid;
+                display: flex;
+                padding: 5px;
+                margin-bottom: 5px;
+            }
+            div#adicionar_item div.container div input {
+                background-color: transparent; 
+                border-style: none; width: 100%;
+            }
+            div#adicionar_item div.container div button {
+                border-radius: 100px; border-style: solid;
+                border-color: #0f6e0f; color: white;
+                border-width: 1px; background-color: #0f6e0f;
+                height: 25px; width: 100px;
+            }
+
+            div#adicionar_item footer button {
+                border-radius: 100px; border-style: solid;
+                border-color: #0f6e0f; color: #0f6e0f;
+                border-width: 1px; background-color: transparent;
+                height: 25px; width: 100px;
+            }
+            div#adicionar_item footer button#adicionar_a_lista {
+                color: white; background-color: #0f6e0f;
+            }
+            /* ------------------------------------------------ */
+
+
+
+            /* <link rel="stylesheet" href="styles/editar.css"> */
+            div#editar div.nome, div#editar div.preco, div#editar div.quantidade {
+                border-radius: 100px; padding: 5px;
+                border-style: solid; border-width: 1px;
+                border-color: #0f6e0f; display: flex;
+            }
+            div#editar div.nome input { width: 100%; }
+            div#editar div.nome button, button.mais, button.menos {
+                border-radius: 100px; border-style: solid;
+                border-color: #0f6e0f; color: white;
+                border-width: 1px; background-color: #0f6e0f;
+                height: 25px; width: 100px;
+            }
+
+            div#editar div.numeros { display: flex; margin-top: 5px; }
+            div#editar div.numeros div.quantidade { margin-left: 5px; }
+            div#editar div.numeros div input {
+                width: 100%;
+            }
+            div#editar div.numeros div button {
+                min-width: 20px; max-width: 20px;
+                height: 20px;
+                margin-left: 3px;
+            }
+
+            div#editar footer button {
+                border-radius: 100px; border-style: solid;
+                border-width: 1px; border-color: #0f6e0f;
+                padding: 5px; width: 100px;
+                background-color: #0f6e0f;
+                color: white;
+            }
+            /* ------------------------------------------------ */
+        </style>
+
+        <title>Lista de Compras</title>
+    </head>
+    <body onload="atualizar_pagina()">
+        
+        <div id="adicionar_item">
+            <section>
+                <nav> <h1> Adicionar novo Item </h1> </nav>
+                <div class="container">
+                    <div class="nome">
+                        <input type="text" id="nome" class="add" placeholder="Nome do produto">
+                        <button class="add"> Limpar </button>
+                    </div>
+                    <div class="preco">
+                        <input type="number" id="nome" class="add" placeholder="Preço do produto">
+                        <button class="add"> Limpar </button>
+                    </div>
+                    <div class="quantidade">
+                        <input type="number" id="quantidade" class="add" placeholder="Quantidade">
+                        <button class="add"> Limpar </button>
+                    </div>
+                </div>
+                <footer>
+                    <button id="cancelar"> cancelar </button>
+                    <button id="adicionar_a_lista"> ADICIONAR </button>
+                </footer>
+            </section>
+        </div>
+
+        <div id="lista_de_compras">
+            <section>
+                <nav> <h1> Lista de Compras </h1> </nav>
+                <div class="container">
+                    <ul id="lista_principal"></ul>
+                    <div class="total">
+                        <ul id="dados_finais"></ul>
+                    </div>
+                </div>
+                <footer>
+                    <button id="adicionar"> Adicionar </button>
+                </footer>
+            </section>
+        </div>
+
+        <div id="editar">
+            <section>
+                <nav> <h1> Editar um dos Itens </h1> </nav>
+                <div class="container">
+                    <div class="nome">
+                        <input type="text" class="edit" placeholder="Nome do produto">
+                        <button class="edit"> Limpar </button>
+                    </div>
+                    <div class="numeros">
+                        <div class="preco">
+                            <input type="number" class="edit" placeholder="Preço">
+                            <button class="mais"> &plus; </button>
+                            <button class="menos"> &minus; </button>
+                        </div>
+                        <div class="quantidade">
+                            <input type="number" class="edit" placeholder="Quant...">
+                            <button class="mais"> &plus; </button>
+                            <button class="menos"> &minus; </button>
+                        </div>
+                    </div>
+                </div>
+                <footer>
+                    <button id="voltar"> Salvar </button>
+                </footer>
+            </section>
+        </div>
+
+        <script>
+            /* <script src="scripts/variaveis.js"> */
+            function deleteByKey(arr, key) {
+            let novo = []
+            for( let c in arr) {
+                    if( c != key) {
+                        novo.push(arr[c])
+                    }
+                }
+                return novo
+            }
+
+
+            const elementos = {
+                adicionar_item: {
+                    elemento: document.querySelector( 'div#adicionar_item'),
+                    inputs: document.querySelectorAll( 'input.add'),
+                    clear_btns: document.querySelectorAll( 'button.add'),
+                    cancelar: document.querySelector( 'button#cancelar'),
+                    adicionar: document.querySelector( 'button#adicionar_a_lista')
+                },
+                lista_de_compras: {
+                    elemento: document.querySelector( 'div#lista_de_compras'),
+                    lista_principal: document.querySelector( 'ul#lista_principal'),
+                    dados_fianis: document.querySelector( 'ul#dados_finais'),
+                    adicionar: document.querySelector( 'button#adicionar')
+                },
+                editar: {
+                    elemento: document.querySelector( 'div#editar')
+                }
+            }
+
+            let lista = []
+            let final = { produtos:0, itens:0, total:'' }
+
+            elementos.adicionar_item.elemento.style.display = 'none'
+            document.querySelector( 'div#editar').style.display = 'none'
+            /* ------------------------------------------------ */
+
+
+
+            /* <script src="scripts/funcoes.js"> */
+            function remover_da_lista(key) {
+                lista = deleteByKey(lista, key)
+                atualizar_pagina()
+            }
+            function atualizar_final() {
+                final = { produtos:lista.length, itens:0, total:'' }
+                let total = 0
+                for( let c = 0; c < lista.length; c++) {
+                    final.itens += lista[c].quantidade
+                    total += lista[c].total_num
+                }
+                final.total = total.toLocaleString( 'pt-br', { style:'currency', currency:'BRL'})
+            }
+            function verificar_valores() {
+                let nome = elementos.adicionar_item.inputs[0].value
+                let preco = elementos.adicionar_item.inputs[1].value
+                let quantidade = elementos.adicionar_item.inputs[2].value
+
+                if( quantidade == '' ) { quantidade = 1 }
+                if( Number(preco) <= 0 || nome == '' || preco == '' || Number(quantidade) < 1) {
+                    alert( 'Oops! Digite os dados corretamente...')
+                    return false
+                } else {
+                    adicionar_ao_array( nome, Number(preco), Number(quantidade))
+                    return true
+                }
+            }
+            function adicionar_ao_array( nome, preco, quantidade) {
+                let total = preco * quantidade
+                lista.push( {
+                    nome: nome,
+                    preco_txt: preco.toLocaleString( 'pt-br', { style:'currency', currency:'BRL'}),
+                    total_txt: total.toLocaleString( 'pt-br', { style:'currency', currency:'BRL'}),
+                    preco_num: preco,
+                    total_num: total,
+                    quantidade: quantidade
+                })
+                atualizar_pagina()
+            }
+            function atualizar_pagina() {
+                listaPagina = elementos.lista_de_compras.lista_principal
+                dadosFinais = elementos.lista_de_compras.dados_fianis
+                if(lista.length == 0) {
+                    listaPagina.innerHTML = '<li class="nada_adicionado"> <span> Nada adicionado ainda... </span> </li>'
+                    dadosFinais.innerHTML = ''
+                } else {
+                    atualizar_final()
+                    listaPagina.innerHTML = ''
+                    for( let c = 0; c < lista.length; c++) {
+                        listaPagina.innerHTML += `<li id="item_lista">
+                            <div class="textos">
+                                <span class="texto-0"> ${lista[c].nome} </span>
+                                <span class="texto-1"> (${lista[c].preco_txt}) </span>
+                                <hr>
+                                <span class="texto-2"> ${lista[c].total_txt} </span>
+                                <span class="texto-3"> (${lista[c].quantidade}x) </span>
+                            </div>
+                            <div class="botoes">
+                                <button class="editar"> Editar </button>
+                                <button class="remover"> Remover </button>
+                            </div>
+                        </li>`
+                        dadosFinais.innerHTML = `<li id="total_produtos"> Produtos: ${final.produtos} </li>
+                        <li id="total_itens"> Itens: ${final.itens} </li>
+                        <li>
+                            <span> TOTAL: </span>
+                            <span id="total_compra"> ${final.total} </span>
+                        </li>`
+                    }
+                    let editarRemover = [
+                        document.querySelectorAll( 'button.editar'),
+                        document.querySelectorAll( 'button.remover')
+                    ]
+                    for( let c = 0; c < lista.length; c++) {
+                        editarRemover[0][c].addEventListener( 'click', function() {
+                            editar_item(c)
+                        })
+                        editarRemover[1][c].addEventListener( 'click', function() { remover_da_lista(c) })
+                    }
+                }
+            }
+            function editar_item(key) {
+                const editar = {
+                    elemento: document.querySelector( 'div#editar'),
+                    nome: document.querySelectorAll( 'input.edit')[0],
+                    preco: document.querySelectorAll( 'input.edit')[1],
+                    quantidade: document.querySelectorAll( 'input.edit')[2],
+                    limpar: document.querySelector( 'button.edit'),
+                    mais: document.querySelectorAll( 'button.mais'),
+                    menos: document.querySelectorAll( 'button.menos'),
+                    salvar: document.querySelector( 'button#voltar')
+                }
+                editar.elemento.style.display = ''
+                elementos.lista_de_compras.elemento.style.display = 'none'
+                
+                editar.nome.value = lista[key].nome
+                editar.preco.value = lista[key].preco_num
+                editar.quantidade.value = lista[key].quantidade
+
+                editar.limpar.addEventListener( 'click', function() {
+                    editar.nome.value = ''
+                })
+
+                for( let c = 0; c < 2; c++) {
+                    editar.mais[c].addEventListener( 'click', function() {
+                        if(c == 0) {
+                            editar.preco.value = Number(editar.preco.value) +1
+                        } else {
+                            editar.quantidade.value = Number(editar.quantidade.value) +1
+                        }
+                    })
+                    editar.menos[c].addEventListener( 'click', function() {
+                        if(c == 0) {
+                            editar.preco.value = Number(editar.preco.value) -1
+                        } else {
+                            editar.quantidade.value = Number(editar.quantidade.value) -1
+                        }
+                    })
+                }
+
+                editar.salvar.addEventListener( 'click', function() {
+                    if( editar.quantidade.value == '' ) { editar.quantidade.value = 1 }
+                    if( Number(editar.preco.value) <= 0 || editar.nome.value == '' || editar.preco.value == '' || Number(editar.quantidade.value) < 1) {
+                        alert( 'Oops! Digite os dados corretamente...')
+                    } else {
+                        let total = Number(editar.preco.value) * Number(editar.quantidade.value)
+                        lista[key] = {
+                            nome: editar.nome.value,
+                            preco_txt: Number(editar.preco.value).toLocaleString( 'pt-br', { style:'currency', currency:'BRL'}),
+                            total_txt: total.toLocaleString( 'pt-br', { style:'currency', currency:'BRL'}),
+                            preco_num: Number(editar.preco.value),
+                            total_num: total,
+                            quantidade: Number(editar.quantidade.value)
+                        }
+                        editar.elemento.style.display = 'none'
+                        elementos.lista_de_compras.elemento.style.display = ''
+                        atualizar_pagina()
+                    }
+                })
+            }
+            /* ------------------------------------------------ */
+
+
+            /* <script src="scripts/botoes.js"> */
+            function voltar_a_listaDeCompras(adicionar) {
+                if(adicionar) {
+                    if( verificar_valores()) {
+                        elementos.adicionar_item.elemento.style.display = 'none'
+                        elementos.lista_de_compras.elemento.style.display = ''
+                    }
+                } else {
+                    elementos.adicionar_item.elemento.style.display = 'none'
+                    elementos.lista_de_compras.elemento.style.display = ''
+                }
+                for( let c = 0; c < 3; c++) { elementos.adicionar_item.inputs[c].value = '' }
+            }
+
+
+            elementos.lista_de_compras.adicionar.addEventListener( 'click', function() {
+                elementos.lista_de_compras.elemento.style.display = 'none'
+                elementos.adicionar_item.elemento.style.display = ''
+            })
+
+            elementos.adicionar_item.cancelar.addEventListener( 'click', function() { voltar_a_listaDeCompras(false) })
+            elementos.adicionar_item.adicionar.addEventListener( 'click', function() { voltar_a_listaDeCompras(true) })
+
+            for( let c = 0; c < 3; c++) {
+                elementos.adicionar_item.clear_btns[c].addEventListener( 'click', function() { elementos.adicionar_item.inputs[c].value = '' })
+            }
+            /* ------------------------------------------------ */
+        </script>
+    </body>
+</html>
+
+<!-- <li class="nada_adicionado"> <span> Nada adicionado ainda... </span> </li> -->
+<!-- <li id="item_lista">
+    <div class="textos">
+        <span class="texto-0"> Arroz </span>
+        <span class="texto-1"> (R$ 24,99) </span>
+        <hr>
+        <span class="texto-2"> R$ 49,98 </span>
+        <span class="texto-3"> (2x) </span>
+    </div>
+    <div class="botoes">
+        <button class="editar"> Editar </button>
+        <button class="remover"> Remover </button>
+    </div>
+</li> -->
+
+<!-- <li id="total_produtos"> Produtos: 1 </li>
+<li id="total_itens"> Itens: 2 </li>
+<li>
+    <span> TOTAL: </span>
+    <span id="total_compra"> R$ 49,98 </span>
+</li> -->

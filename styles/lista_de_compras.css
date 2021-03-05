@@ -1,0 +1,74 @@
+ul#lista_principal li {
+    border-style: solid; border-width: 1px;
+    border-color: #0f6e0f; border-radius: 7px;
+    display: flex; padding: 10px; margin-bottom: 10px;
+}
+
+ul#lista_principal li.nada_adicionado { border-style: none; color: #5f5f5f; }
+ul#lista_principal li.nada_adicionado span {
+    width: 100%;
+    font-style: italic;
+}
+
+ul#lista_principal li div.textos { width: 100%; text-align: left; }
+ul#lista_principal li div.textos hr {
+    width: 50px;
+    margin: 1px 0;
+    border-style: solid;
+    color: transparent;
+    border-color: #5f5f5f77;
+    margin-left: 7px;
+}
+ul#lista_principal li div.textos span.texto-0 {
+    color: #5f5f5f;
+    font-size: 17px;
+    margin-right: 7px;
+}
+ul#lista_principal li div.textos span.texto-1 {
+    color: #5f5f5f;
+    font-size: 10px;
+    line-height: 17px;
+    position: absolute;
+}
+ul#lista_principal li div.textos span.texto-2 {
+    color: #0f6e0f;
+    font-weight: bold;
+    font-size: 20px;
+}
+ul#lista_principal li div.textos span.texto-3 {
+    color: #5f5f5f;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+ul#lista_principal li div.botoes { max-width: 100px; }
+ul#lista_principal li div.botoes button.editar {
+    width: 100%;
+    border-radius: 100px;
+    border-style: none;
+    background-color: #0f6e0f;
+    color: white;
+    height: 25px;
+}
+ul#lista_principal li div.botoes button.remover {
+    margin-top: 5px;
+    width: 100%;
+    border-style: none;
+    background-color: transparent;
+    color: #0f6e0f;
+    height: 20px;
+}
+
+ul#dados_finais li { color: #5f5f5f; font-size: 12px; }
+ul#dados_finais li#total_itens { margin-bottom: 10px; }
+ul#dados_finais li span { font-size: 15px; font-weight: bold; display: block; }
+ul#dados_finais li span#total_compra { color: #0f6e0f; font-size: 20px; }
+
+div#lista_de_compras footer button {
+    width: 100px;
+    border-radius: 100px;
+    border-style: none;
+    background-color: #0f6e0f;
+    color: white;
+    height: 25px;
+}

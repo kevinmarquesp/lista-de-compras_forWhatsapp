@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="styles/global.css">
+        <link rel="stylesheet" href="styles/lista_de_compras.css">
+        <link rel="stylesheet" href="styles/adicionar_item.css">
+        <link rel="stylesheet" href="styles/editar.css">
+
+        <title>Lista de Compras</title>
+    </head>
+    <body onload="atualizar_pagina()">
+        
+        <div id="adicionar_item">
+            <section>
+                <nav> <h1> Adicionar novo Item </h1> </nav>
+                <div class="container">
+                    <div class="nome">
+                        <input type="text" id="nome" class="add" placeholder="Nome do produto">
+                        <button class="add"> Limpar </button>
+                    </div>
+                    <div class="preco">
+                        <input type="number" id="nome" class="add" placeholder="Preço do produto">
+                        <button class="add"> Limpar </button>
+                    </div>
+                    <div class="quantidade">
+                        <input type="number" id="quantidade" class="add" placeholder="Quantidade">
+                        <button class="add"> Limpar </button>
+                    </div>
+                </div>
+                <footer>
+                    <button id="cancelar"> cancelar </button>
+                    <button id="adicionar_a_lista"> ADICIONAR </button>
+                </footer>
+            </section>
+        </div>
+
+        <div id="lista_de_compras">
+            <section>
+                <nav> <h1> Lista de Compras </h1> </nav>
+                <div class="container">
+                    <ul id="lista_principal"></ul>
+                    <div class="total">
+                        <ul id="dados_finais"></ul>
+                    </div>
+                </div>
+                <footer>
+                    <button id="adicionar"> Adicionar </button>
+                </footer>
+            </section>
+        </div>
+
+        <div id="editar">
+            <section>
+                <nav> <h1> Editar um dos Itens </h1> </nav>
+                <div class="container">
+                    <div class="nome">
+                        <input type="text" class="edit" placeholder="Nome do produto">
+                        <button class="edit"> Limpar </button>
+                    </div>
+                    <div class="numeros">
+                        <div class="preco">
+                            <input type="number" class="edit" placeholder="Preço">
+                            <button class="mais"> &plus; </button>
+                            <button class="menos"> &minus; </button>
+                        </div>
+                        <div class="quantidade">
+                            <input type="number" class="edit" placeholder="Quant...">
+                            <button class="mais"> &plus; </button>
+                            <button class="menos"> &minus; </button>
+                        </div>
+                    </div>
+                </div>
+                <footer>
+                    <button id="voltar"> Salvar </button>
+                </footer>
+            </section>
+        </div>
+
+        <script src="scripts/variaveis.js"></script>
+        <script src="scripts/funcoes.js"></script>
+        <script src="scripts/botoes.js"></script>
+    </body>
+</html>
+
+<!-- <li class="nada_adicionado"> <span> Nada adicionado ainda... </span> </li> -->
+<!-- <li id="item_lista">
+    <div class="textos">
+        <span class="texto-0"> Arroz </span>
+        <span class="texto-1"> (R$ 24,99) </span>
+        <hr>
+        <span class="texto-2"> R$ 49,98 </span>
+        <span class="texto-3"> (2x) </span>
+    </div>
+    <div class="botoes">
+        <button class="editar"> Editar </button>
+        <button class="remover"> Remover </button>
+    </div>
+</li> -->
+
+<!-- <li id="total_produtos"> Produtos: 1 </li>
+<li id="total_itens"> Itens: 2 </li>
+<li>
+    <span> TOTAL: </span>
+    <span id="total_compra"> R$ 49,98 </span>
+</li> -->
